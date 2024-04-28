@@ -16,11 +16,28 @@ void main() {
           app.main();
           await widgetTester.pumpAndSettle();
           await widgetTester.enterText(
-              find.byType(TextField), 'Checkabc23{llllllll');
+              find.byType(TextField), 'Checkasd23{llllllll');
+          await widgetTester.pumpAndSettle();
           await widgetTester.tap(find.byType(ElevatedButton));
+          await widgetTester.pumpAndSettle();
 
           final textElement = find.text(correctText);
-          expect(textElement.hasFound, true);
+          expect(textElement, findsOneWidget);
+        },
+      );
+      testWidgets(
+        'After tapping validate for invalid password incorrect text appears',
+        (widgetTester) async {
+          app.main();
+          await widgetTester.pumpAndSettle();
+          await widgetTester.enterText(
+              find.byType(TextField), 'Checkшшш23llllllll');
+          await widgetTester.pumpAndSettle();
+          await widgetTester.tap(find.byType(ElevatedButton));
+          await widgetTester.pumpAndSettle();
+
+          final textElement = find.text(incorrectText);
+          expect(textElement, findsOneWidget);
         },
       );
     },
